@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\UserModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserModelFactory
@@ -25,7 +26,7 @@ class UserModelFactory extends Factory
     {
         return [
             UserModel::NAME       => $this->faker->name,
-            UserModel::PASSWORD   => $this->faker->password,
+            UserModel::PASSWORD   => Hash::make($this->faker->password),
             UserModel::EMAIL      => $this->faker->unique()->safeEmail,
             UserModel::CREATED_AT => now(),
             UserModel::UPDATED_AT => now(),

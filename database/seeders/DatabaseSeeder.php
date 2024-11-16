@@ -2,10 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AddressModel;
+use App\Models\UserModel;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class DatabaseSeeder
+ *
+ * @namespace Database\Seeders
+ *
+ * @author Tomas Valent
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,11 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        UserModel::factory()->count(5)->create();
+        AddressModel::factory()->count(10)->create();
     }
 }

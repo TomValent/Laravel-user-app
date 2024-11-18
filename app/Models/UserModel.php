@@ -62,6 +62,6 @@ class UserModel extends Authenticatable
      */
     public function addresses(): HasMany
     {
-        return $this->hasMany(AddressModel::class, self::ID, AddressModel::USER_ID);
+        return $this->hasMany(AddressModel::class, AddressModel::USER_ID, self::ID);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\UserApiController;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/users', [UserApiController::class, 'getUsers']);
-Route::get('/user/{id}', [UserApiController::class, 'getUser']);
+Route::get("/users", [UserApiController::class, "getUsers"]);
+Route::get("/user/{userId}", [UserApiController::class, "getUser"]);
 
-Route::post('/user/{id}/address', [UserApiController::class, 'userAddress']);
+Route::post('/user/{userId}/address', [UserApiController::class, 'userAddress']);

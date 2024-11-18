@@ -7,8 +7,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/auth/handle', [AuthController::class, 'handle'])->name('auth.handle');
+Route::prefix('auth')->group(function () {
+    Route::post('/handle', [AuthController::class, 'handle'])
+        ->name('auth.handle');
+});
 
-Route::get('/address/form', function() {
+Route::get('user/{userId}/address/form', function() {
     return view('addressForm');
 })->name('addressForm');

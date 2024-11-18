@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -28,32 +29,35 @@ class AuthController
     public function handle(Request $request)
     {
         $request->validate([
+            "name"     => "nullable|min:4",
             "email"    => "required|email",
             "password" => "required|min:8",
-            "action"   => "required|in:login,register",
         ]);
 
         /** @var UserModel|null $user */
-        $user = UserModel::where("email", $request->email)->get();
+        $user = UserModel::where("email", $request->email)->first();
 
-        if ($user) {
+        if ($user instanceof UserModel) {
             if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
-                return redirect()->route("addressForm");
+                if ($request->name && !$user->name) {
+                    $user->name = $request->name;
+                    $user->save();
+                }
             } else {
-                throw ValidationException::withMessages([
-                    "email" => ["Invalid login credentials."],
-                ]);
+                return back()->withErrors(['email' => 'Invalid login credentials.'])->withInput();
             }
         } else {
-            User::create([
+            $user = UserModel::create([
                 "name"     => $request->name,
                 "email"    => $request->email,
                 "password" => Hash::make($request->password),
             ]);
 
             Auth::attempt(["email" => $request->email, "password" => $request->password]);
-
-            return redirect()->route("addressForm");
         }
+
+        \Illuminate\Support\Facades\Log::debug($user->id);
+
+        return redirect()->route("addressForm", ["userId" => $user->id]);
     }
 }

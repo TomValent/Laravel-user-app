@@ -5,13 +5,20 @@
 form {
     border: 1px solid black;
     border-radius: 10px;
-    width: 250px;
     padding: 50px;
 
-    &input {
+    &.input {
         border: 1px solid black;
         border-radius: 10px;
     }
+}
+
+.narrow {
+    width: 250px;
+}
+
+.wide {
+    width: 720px;
 }
 
 h2, p {
@@ -23,11 +30,6 @@ h2, p {
     justify-content: center;
     align-items: center;
     height: 50vh;
-
-    &.item {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
 }
 
 .item {
@@ -40,7 +42,6 @@ h2, p {
 
 label {
     margin-bottom: 5px;
-    font-weight: bold;
 }
 
 input {
@@ -61,4 +62,42 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+.required-star {
+    color: red;
+}
+
+.heading {
+    text-align: center;
+    padding-top: 50px;
+}
+
+/* Address form grid */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-button {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.address_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
 }

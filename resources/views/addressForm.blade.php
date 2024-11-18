@@ -20,6 +20,66 @@
     @endif
 </head>
 <body>
+    <h2 class="heading">Add New Address</h2>
+
+    @if (request()->query('success') == 'true')
+        <div style="color:green" class="heading">
+            <h3>Saving your address was successful!</h3>
+        </div>
+    @endif
+
+
+    <div class="address_form">
+        <form class="wide" action="{{ url('/api/user/' . request()->route('userId') . '/address') }}" method="POST">
+            @csrf
+            <p style="padding-bottom: 30px">Address</p>
+            <div class="form-grid">
+                <div class="grid-item">
+                    <label for="street">Street <span class="required-star">*</span></label>
+                    <input type="text" id="street" name="street" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="city">City <span class="required-star">*</span></label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="zip">Zip code <span class="required-star">*</span></label>
+                    <input type="text" id="zip" name="zip" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="countryCode">Country code (2 letters)<span class="required-star">*</span></label>
+                    <input type="text" id="countryCode" name="countryCode" maxlength="2" required>
+                </div>
+
+                <div class="grid-item">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email">
+                </div>
+
+                <div class="grid-item">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone">
+                </div>
+            </div>
+
+            <input type="hidden" name="userId" value="{{ request()->route('userId') }}">
+
+            <div class="grid-item form-button">
+                <button type="submit">Submit</button>
+            </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <div class="required-star">{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+        </form>
+    </div>
 
 </body>
 </html>

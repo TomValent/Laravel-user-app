@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use League\ISO3166\ISO3166;
+use Throwable;
 
 /**
  * Class UserApiController
@@ -55,18 +56,28 @@ class UserApiController
     {
         $data = $request->all();
 
+        try {
+            UserModel::findOrFail($userId);
+        } catch (Throwable $exception) {
+            return redirect()->route('addressForm', ["userId" => $userId, "success" => "false"]);
+        }
+
         $country = (new ISO3166)->alpha2($data["countryCode"])["name"];
 
-        AddressModel::create([
-            AddressModel::USER_ID      => $userId,
-            AddressModel::CITY         => $data["city"],
-            AddressModel::STREET       => $data["street"],
-            AddressModel::ZIP          => $data["zip"],
-            AddressModel::COUNTRY      => $country,
-            AddressModel::COUNTRY_CODE => $data["countryCode"],
-            AddressModel::EMAIL        => $data["email"] ?? null,
-            AddressModel::PHONE        => $data["phone"] ?? null,
-        ]);
+        try {
+            AddressModel::create([
+                AddressModel::USER_ID      => $userId,
+                AddressModel::CITY         => $data["city"],
+                AddressModel::STREET       => $data["street"],
+                AddressModel::ZIP          => $data["zip"],
+                AddressModel::COUNTRY      => $country,
+                AddressModel::COUNTRY_CODE => $data["countryCode"],
+                AddressModel::EMAIL        => $data["email"] ?? null,
+                AddressModel::PHONE        => $data["phone"] ?? null,
+            ]);
+        } catch (Throwable $exception) {
+            return redirect()->route('addressForm', ["userId" => $userId, "success" => "false"]);
+        }
 
         return redirect()->route('addressForm', ["userId" => $userId, "success" => "true"]);
     }

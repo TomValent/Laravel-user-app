@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserModel;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -55,8 +53,6 @@ class AuthController
 
             Auth::attempt(["email" => $request->email, "password" => $request->password]);
         }
-
-        \Illuminate\Support\Facades\Log::debug($user->id);
 
         return redirect()->route("addressForm", ["userId" => $user->id]);
     }

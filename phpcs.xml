@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ruleset name="MyProject">
+    <description>Custom coding standard</description>
+
+    <!-- Base Standard -->
+    <rule ref="PSR12"/>
+
+    <!-- Custom Rules -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="150"/>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+    <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+    <rule ref="Generic.WhiteSpace.ScopeIndent"/>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+    <rule ref="Squiz.Functions.FunctionDeclaration"/>
+    <rule ref="Squiz.ControlStructures.ControlSignature"/>
+    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+    <rule ref="Squiz.Scope.MethodScope"/>
+    <rule ref="PSR1.Classes.ClassDeclaration"/>
+    <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="PSR1.Methods.CamelCapsMethodName"/>
+    <rule ref="Squiz.Classes.ClassFileName"/>
+
+    <rule>
+        <name>App.Sniffs.PascalCaseClassNameSniff</name>
+        <severity>error</severity>
+    </rule>
+
+    <!-- Project Files -->
+    <file>app</file>
+    <file>database</file>
+
+    <!-- Encoding -->
+    <arg name="encoding" value="utf-8"/>
+</ruleset>

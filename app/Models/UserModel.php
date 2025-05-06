@@ -58,7 +58,7 @@ class UserModel extends Authenticatable
     protected $table = 'users';
 
     /**
-     * @return HasMany
+     * @return HasMany<\App\Models\AddressModel, \App\Models\UserModel>
      */
     public function addresses(): HasMany
     {

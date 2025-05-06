@@ -64,7 +64,7 @@ class AddressModel extends Model
     /** @var string */
     public const UPDATED_AT = "updated_at";
 
-    /** @var string[] $fillable */
+    /** @var list<string> $fillable */
     protected $fillable = [
         self::USER_ID,
         self::STREET,
@@ -82,10 +82,11 @@ class AddressModel extends Model
     protected $table = "addresses";
 
     /**
-     * @return BelongsTo
+     * @return BelongsTo<UserModel, AddressModel>
      */
     public function user(): BelongsTo
     {
+        /** @phpstan-ignore return.type */
         return $this->belongsTo(UserModel::class, UserModel::ID, AddressModel::ID);
     }
 }

@@ -33,8 +33,6 @@
         <severity>error</severity>
     </rule>
 
-    <rule ref="SlevomatCodingStandard"/>
-
     <!-- Project Files -->
     <file>app</file>
     <file>database</file>

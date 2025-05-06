@@ -24,7 +24,7 @@ class UserApiController
      */
     public function getUsers(): JsonResponse
     {
-        $users = UserModel::all();
+        $users       = UserModel::all();
         $outputUsers = [];
 
         foreach ($users->all() as $user) {
@@ -62,7 +62,7 @@ class UserApiController
             return redirect()->route('addressForm', ["userId" => $userId, "success" => "false"]);
         }
 
-        $country = (new ISO3166)->alpha2($data["countryCode"])["name"];
+        $country = (new ISO3166())->alpha2($data["countryCode"])["name"];
 
         try {
             AddressModel::create([
@@ -91,7 +91,7 @@ class UserApiController
     {
         $outputUser = [];
 
-        foreach($user->toArray() as $key => $value) {
+        foreach ($user->toArray() as $key => $value) {
             if ($key !== "password") {
                 $outputUser[$key] = $user[$key];
             }

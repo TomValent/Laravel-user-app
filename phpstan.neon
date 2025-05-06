@@ -9,10 +9,6 @@ parameters:
         - vendor/autoload.php
         - vendor/squizlabs/php_codesniffer/autoload.php
 
-    # Optional: Ignore specific errors (throws error if there is nothing to ignore)
-    ignoreErrors:
-        - '#Call to an undefined static method .*#'
-
 # Includes config from phpstan package
 includes:
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon

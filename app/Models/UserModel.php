@@ -25,7 +25,8 @@ use Illuminate\Notifications\Notifiable;
 class UserModel extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserModelFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /** @var string */
     public const ID = "id";
@@ -45,7 +46,7 @@ class UserModel extends Authenticatable
     /** @var string */
     public const UPDATED_AT = "updated_at";
 
-    /** @var string[] $fillable */
+    /** @var list<string> $fillable */
     protected $fillable = [
         self::NAME,
         self::PASSWORD,
@@ -62,6 +63,7 @@ class UserModel extends Authenticatable
      */
     public function addresses(): HasMany
     {
+        /** @phpstan-ignore return.type */
         return $this->hasMany(AddressModel::class, AddressModel::USER_ID, self::ID);
     }
 }
